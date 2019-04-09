@@ -1,0 +1,34 @@
+{
+  "roles":[
+    {"role":"Normal","default":"true"}
+  ],
+  "paths":[
+    {
+      "path":"/*",
+      "grants":[
+        {"role":"Normal"}
+      ]
+    },
+    {
+      "path":"/store/remote/**/*",
+      "grants":[
+        {"role":"Normal"}
+      ]
+    },{
+      "path":"/store/local/upload",
+      "grants":[
+        {"role":"Normal"}
+      ]
+    },{
+      "path":"/store/local/getPath/**/*",
+      "grants":[
+        {"role":"Normal"}
+      ]
+    },{
+      "path":"/store/local/deleteItem/*",
+      "grants":[
+        {"role":"Normal"}
+      ]
+    }
+  ]
+}

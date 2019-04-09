@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通用文件对象存储短应用</title>
+    <link rel="stylesheet" href="webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="webjars/jquery-ui/1.12.1/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="webjars/select2/4.0.5/css/select2.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="webjars/popper.js/1.14.1/umd/popper.min.js"></script>
+    <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="webjars/moment/2.22.2/min/moment.min.js"></script>
+    <script src="webjars/holderjs/2.9.4/holder.min.js"></script>
+    <script src="webjars/select2/4.0.5/js/select2.full.js"></script>
+    <!--<script src="/aad/xiaoji/js/menus.js"></script>-->
+    <script th:src="@{/js/modal.js}"></script>
+</head>
+<body>
+<header
+        class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar bd-navbar-111">
+    <a class="navbar-brand" href="">通用文件对象存储短应用</a>
+</header>
+</header>
+<br/>
+<br/>
+<div class="container-fluid">
+    <h1>通用文件对象存储短应用文件持久化接口</h1>
+    <div>
+        <h2>保存</h2>
+        <h4>url</h4>
+        <p>http://xiaoji.guobaa.com/abl/store/remote/upload</p>
+        <h4>入参</h4>
+        <p>json{</p>
+        <p>&nbsp;&nbsp;"saPrefix":saPrefix</p>
+        <p>&nbsp;&nbsp;"group":group</p>
+        <p>&nbsp;&nbsp;"storeTtype":storeTtype // 此参数目前可以不设置</p>
+        <p>&nbsp;&nbsp;"formData":formData</p>
+        <p>}</p>
+        <h4>出参</h4>
+        <p>json{</p>
+        <p>&nbsp;&nbsp;code:"",</p>
+        <p>&nbsp;&nbsp;data:"",</p>
+        <p>&nbsp;&nbsp;message:"",</p>
+        <p>}</p>
+    </div>
+    <hr>
+    <div>
+        <h2>取出</h2>
+        <h4>url</h4>
+        <p>http://xiaoji.guobaa.com/abl/store/remote/download</p>
+        <h4>入参</h4>
+        <p>json{</p>
+        <p>&nbsp;&nbsp;"id":id</p>
+        <p>}</p>
+        <h4>出参</h4>
+        <p>json{</p>
+        <p>&nbsp;&nbsp;code:"",</p>
+        <p>&nbsp;&nbsp;data:"",</p>
+        <p>&nbsp;&nbsp;message:"",</p>
+        <p>}</p>
+    </div>
+    <hr>
+    <hr>
+    <h1>通用文件对象存储短应用静态资源获取</h1>
+    <p>请通过引入js文件路径/abl/js/modal.js来使用该应用的模态框</p>
+    <hr>
+    <div>
+        <h3>图片插入框获取函数</h3>
+        <p>showABLSeaInsModal(username,function (url){ })---username为null的时候查询该组织下所有资源</p>
+        <button class="bbbbbb">点击弹出图片插入事例</button>
+        <img class="aaaaaa">
+    </div>
+    <hr>
+    <div>
+        <h3>文件插入框获取函数</h3>
+        <p>showABLSeaDocModal(username,function (url){ })---username为null的时候查询该组织下所有资源</p>
+        <button class="cccccc">点击弹出文件插入事例</button>
+        <a class="bcd">doc</a>
+    </div>
+    <hr>
+    <div>
+        <h3>视频插入框获取函数</h3>
+        <p>showABLSeaVideoModal(username,function (url){ })---username为null的时候查询该组织下所有资源</p>
+        <button class="dddddd">点击弹出视频插入事例</button>
+        <video width="100px" height="100px" class="video-aaa" controls="controls"></video>
+    </div>
+
+
+</div>
+</body>
+<script type="text/javascript">
+    $(".bbbbbb").on('click', function () {
+        showABLSeaInsModal("user",function (url) {
+            $(".aaaaaa").attr("src", url);
+        })
+    })
+    $(".cccccc").on('click', function () {
+        showABLSeaDocModal(null,function (url) {
+            $(".bcd").attr("href", url);
+
+        })
+    })
+    $(".dddddd").on('click', function () {
+        showABLSeaVideoModal(null,function (url) {
+            $(".video-aaa").attr("src", url)
+
+        })
+    })
+</script>
+</html>
