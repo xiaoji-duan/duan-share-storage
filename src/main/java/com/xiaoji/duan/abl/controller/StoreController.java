@@ -180,6 +180,25 @@ public class StoreController {
         return ResultResponse.makeErrRsp("文件不存在");
     }
 
+    @RequestMapping(value = "/local/getSnapshot/{id}", method = RequestMethod.GET)
+    public MessageResult getSnapshot(HttpServletRequest req, HttpServletResponse resp, @PathVariable("id") Long id) {
+        AblDocument document = storeService.selectDocById(id);
+        if (document != null) {
+            String fileName = document.getDocumentName();
+            if (fileName.toLowerCase().endsWith("jpg")
+            		|| fileName.toLowerCase().endsWith("jpeg")
+            		|| fileName.toLowerCase().endsWith("gif")
+            		|| fileName.toLowerCase().endsWith("png")
+            		|| fileName.toLowerCase().endsWith("bmp")) {
+                SmbUtils.showSnapshotToBrowser(resp, document.getHdPosition(), document.getPositionX() + "/" + document.getPositionY(), document.getDocumentPosition(), fileName);
+            } else {
+                SmbUtils.showFileToBrowser(resp, document.getHdPosition(), document.getPositionX() + "/" + document.getPositionY(), document.getDocumentPosition(), fileName);
+            }
+            return ResultResponse.makeOKRsp("开始下载");
+        }
+        return ResultResponse.makeErrRsp("文件不存在");
+    }
+
     @RequestMapping(value = "/local/deleteItem/{id}")
     public MessageResult deleteItem(HttpServletRequest req, HttpServletResponse resp, @PathVariable("id") Long id) {
         System.out.println(id);

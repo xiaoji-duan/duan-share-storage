@@ -4,6 +4,8 @@ import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -135,6 +137,57 @@ public class SmbUtils {
             }
         }
     }
+    
+    public static void showSnapshotToBrowser(HttpServletResponse httpServletResponse, String remoteUrl, String shareFolderPath, String DocumentPosition,String fileName) {
+        SmbFile smbFile;
+        SmbFileInputStream smbFileInputStream = null;
+        OutputStream outputStream = null;
+        try {
+            // smb://userName:passWord@host/path/shareFolderPath/fileName
+            smbFile = new SmbFile(remoteUrl + shareFolderPath + "/" + DocumentPosition);
+            smbFileInputStream = new SmbFileInputStream(smbFile);
+            System.out.println(fileName);
+            if(fileName.endsWith("json")){
+                httpServletResponse.setContentType("application/json;charset=UTF-8");
+            }else{
+                httpServletResponse.setContentType("text/html; charset=UTF-8");
+                httpServletResponse.setContentType("*/*");
+            }
+            // 处理空格转为加号的问题
+            outputStream = httpServletResponse.getOutputStream();
+//            byte[] buff = new byte[1048576];
+//            int len;
+//            while ((len = smbFileInputStream.read(buff)) != -1) {
+//                outputStream.write(buff, 0, len);
+//            }
+            Thumbnails.of(smbFileInputStream).size(512, 512).toOutputStream(outputStream);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(" 获取失败");
+        } catch (SmbException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取失败");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取失败");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取失败");
+        } finally {
+            try {
+                if(outputStream!=null){
+                    outputStream.close();
+                }
+                if(smbFileInputStream!=null){
+                    smbFileInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void showFileToBrowser(HttpServletResponse httpServletResponse, String remoteUrl, String shareFolderPath, String DocumentPosition,String fileName) {
         SmbFile smbFile;
         SmbFileInputStream smbFileInputStream = null;
