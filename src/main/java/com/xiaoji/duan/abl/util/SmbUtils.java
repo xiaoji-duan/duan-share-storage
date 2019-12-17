@@ -160,7 +160,7 @@ public class SmbUtils {
 //            while ((len = smbFileInputStream.read(buff)) != -1) {
 //                outputStream.write(buff, 0, len);
 //            }
-            Thumbnails.of(smbFileInputStream).size(512, 512).toOutputStream(outputStream);
+            Thumbnails.of(smbFileInputStream).outputQuality(1d).size(256, 256).toOutputStream(outputStream);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
