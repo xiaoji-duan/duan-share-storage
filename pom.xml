@@ -31,7 +31,7 @@
         <mybatis-tk.version>1.1.4</mybatis-tk.version>
         <mapper.version>3.4.3</mapper.version>
         <angularJS.version>1.7.0</angularJS.version>
-        <bootstrap>4.1.0</bootstrap>
+        <bootstrap>4.3.1</bootstrap>
         <jquery.version>3.3.1</jquery.version>
         <fullcalendar.version>3.9.0</fullcalendar.version>
         <jquery-ui.version>1.12.1</jquery-ui.version>
